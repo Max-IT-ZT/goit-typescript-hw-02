@@ -1,7 +1,12 @@
 import { Field, Form, Formik } from "formik";
 import { FcSearch } from "react-icons/fc";
 import css from "./SearchBar.module.css";
-export default function SearchBar({ onSearch }) {
+
+interface SearchBarProps {
+  onSearch: (query: string) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   return (
     <Formik
       initialValues={{ query: "" }}
@@ -23,4 +28,6 @@ export default function SearchBar({ onSearch }) {
       </Form>
     </Formik>
   );
-}
+};
+
+export default SearchBar;

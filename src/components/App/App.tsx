@@ -7,46 +7,60 @@ import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "../ImageModal/ImageModal";
 import SearchBar from "../SearchBar/SearchBar";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+
+type Photo = {
+  id: string;
+  urls: {
+    small: string;
+    regular: string;
+    full: string;
+  };
+  alt_description: string;
+  color: string;
+};
+
+type FetchPhotosResult = {
+  results: Photo[];
+  total_pages: number;
+};
+
 export default function App() {
-  const [photo, setPhoto] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [showBtn, setShowBtn] = useState(false);
-  const [totalPages, setTotalPages] = useState(0);
-  const [showModal, setShowModal] = useState(false);
-  const [modalSrc, setModalSrc] = useState("");
-  const [modalAlt, setModalAlt] = useState("");
+  const [photo, setPhoto] = useState<Photo[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [showBtn, setShowBtn] = useState<boolean>(false);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [modalSrc, setModalSrc] = useState<string>("");
+  const [modalAlt, setModalAlt] = useState<string>("");
 
-  console.log("totalPages: ", totalPages);
-  console.log("photo: ", photo);
-
-  const handleSearch = async (newQuery) => {
+  const handleSearch = async (newQuery: string) => {
     setPhoto([]);
     setPage(1);
     setQuery(newQuery);
   };
 
   const handleLoadMore = () => {
-    setPage(page + 1);
+    setPage((prevPage) => prevPage + 1);
   };
+
   useEffect(() => {
     if (!query) {
       return;
     }
-    async function getPhoto() {
+
+    const getPhoto = async () => {
       try {
         setLoading(true);
         setError(false);
         setShowBtn(true);
-        const data = await fetchPhotos(query, page);
+        const data: FetchPhotosResult = await fetchPhotos(query, page);
 
-        setPhoto((prevPhoto) => {
-          return [...prevPhoto, ...data.results];
-        });
+        setPhoto((prevPhoto) => [...prevPhoto, ...data.results]);
         setTotalPages(data.total_pages);
-        toast.success("Seccess!", {
+        toast.success("Success!", {
           style: {
             borderRadius: "10px",
             background: "#333",
@@ -65,15 +79,17 @@ export default function App() {
       } finally {
         setLoading(false);
       }
-    }
+    };
+
     getPhoto();
   }, [query, page]);
 
-  const openModal = (src, alt) => {
+  const openModal = (src: string, alt: string) => {
     setModalSrc(src);
     setModalAlt(alt);
     setShowModal(true);
   };
+
   const closeModal = () => {
     setShowModal(false);
     setModalAlt("");

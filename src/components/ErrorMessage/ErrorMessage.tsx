@@ -1,6 +1,7 @@
 import css from "./ErrorMessage.module.css";
 import { TbPhotoCancel } from "react-icons/tb";
-export default function ErrorMessage() {
+
+const ErrorMessage: React.FC = () => {
   return (
     <div className={css.container}>
       <TbPhotoCancel className={css.icon} />
@@ -10,4 +11,6 @@ export default function ErrorMessage() {
       </p>
     </div>
   );
-}
+};
+
+export default ErrorMessage;

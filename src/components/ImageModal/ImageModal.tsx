@@ -1,5 +1,13 @@
 import Modal from "react-modal";
 import { RemoveScroll } from "react-remove-scroll";
+
+type ImageModalProps = {
+  modalIsOpen: boolean;
+  closeModal: () => void;
+  src: string;
+  alt: string;
+};
+
 const customStyles = {
   content: {
     top: "50%",
@@ -14,9 +22,15 @@ const customStyles = {
     zIndex: "2",
   },
 };
+
 Modal.setAppElement("#root");
 
-export default function ImageModal({ modalIsOpen, closeModal, src, url }) {
+const ImageModal: React.FC<ImageModalProps> = ({
+  modalIsOpen,
+  closeModal,
+  src,
+  alt,
+}) => {
   return (
     <div>
       <RemoveScroll enabled={modalIsOpen}>
@@ -25,9 +39,10 @@ export default function ImageModal({ modalIsOpen, closeModal, src, url }) {
           onRequestClose={closeModal}
           style={customStyles}
         >
-          <img src={src} alt={url} />
+          <img src={src} alt={alt} />
         </Modal>
       </RemoveScroll>
     </div>
   );
-}
+};
+export default ImageModal;

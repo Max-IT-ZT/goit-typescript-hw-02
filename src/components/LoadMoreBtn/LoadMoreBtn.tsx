@@ -1,6 +1,11 @@
+import React from "react";
 import css from "./LoadMoreBtn.module.css";
 import { HiCloudDownload } from "react-icons/hi";
-export default function LoadMoreBtn({ loadMore }) {
+
+interface LoadMoreBtnProps {
+  loadMore: () => void;
+}
+const LoadMoreBtn: React.FC<LoadMoreBtnProps> = ({ loadMore }) => {
   return (
     <div className={css.container}>
       <button onClick={loadMore} className={css.btn}>
@@ -9,4 +14,6 @@ export default function LoadMoreBtn({ loadMore }) {
       </button>
     </div>
   );
-}
+};
+
+export default LoadMoreBtn;
