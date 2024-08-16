@@ -1,0 +1,16 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  width: 400px;
+  height: 270px;
+}
+.item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
